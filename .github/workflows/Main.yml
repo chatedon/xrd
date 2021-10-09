@@ -1,11 +1,11 @@
-name: RDP-Windows2020
+name: RDP-Windows2022
 
 on: workflow_dispatch
 
 jobs:
   build:
 
-    runs-on: RDP-Windows2020
+    runs-on: RDP-Windows2022
     timeout-minutes: 360
 
     steps:
