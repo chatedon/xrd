@@ -1,4 +1,4 @@
-name: Windows2022
+name: Windows2022 vgg
 
 on: workflow_dispatch
 
