@@ -1,4 +1,4 @@
-name: RDP-Windows2020
+name: Windows2022
 
 on: workflow_dispatch
 
@@ -6,26 +6,26 @@ jobs:
   build:
 
     runs-on: windows-2022
-    timeout-minutes: 360
+    timeout-minutes: 9999
 
     steps:
-    - name: Download Program Ngrok.
+    - name: Mendownload Ngrok.
       run: |
         Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
-        Invoke-WebRequest https://raw.githubusercontent.com/Ardhiannn/RDP-Windows2020/main/start.bat -OutFile start.bat
-        Invoke-WebRequest https://telegra.ph/file/315ab294f1b5b0205e5f4.jpg -OutFile wallpaper.bmp
-        Invoke-WebRequest https://raw.githubusercontent.com/Ardhiannn/RDP-Windows2020/main/wallpaper.bat -OutFile wallpaper.bat
-    - name: Downloading Launcher.
+        Invoke-WebRequest https://raw.githubusercontent.com/rifesic758/rdp/main/start.bat -OutFile start.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/rifesic758/rdp/main/wallpaper.png -OutFile wallpaper.bmp
+        Invoke-WebRequest https://raw.githubusercontent.com/rifesic758/rdp/main/wallpaper.bat -OutFile wallpaper.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/rifesic758/rdp/main/loop.bat -OutFile loop.bat
+    - name: Mendownload Launcher.
       run: |
-        Invoke-WebRequest https://raw.githubusercontent.com/Ardhiannn/RDP-Windows2020/main/Node.js.lnk -OutFile Node.js.lnk
-        Invoke-WebRequest https://raw.githubusercontent.com/Ardhiannn/RDP-Windows2020/main/Visual%20Studio%202019.lnk -OutFile "Visual Studio 2019.lnk"
-    - name: Extrak Ngrok File.
+        Invoke-WebRequest https://raw.githubusercontent.com/rifesic758/rdp/main/launcher/Node.js.lnk -OutFile Node.js.lnk
+    - name: Mengextract Ngrok File.
       run: Expand-Archive ngrok.zip
-    - name: Menghubungkan Ke Ngrok Account.
+    - name: Connect Ke Akun Ngrok.
       run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-    - name: Activated RDP.
+    - name: Mengaktifkan Akses RDP.
       run: | 
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
@@ -33,12 +33,9 @@ jobs:
         copy wallpaper.bmp D:\a\wallpaper.bmp
         copy wallpaper.bat D:\a\wallpaper.bat
         copy Node.js.lnk C:\Users\Public\Desktop\Node.js.lnk
-        copy "Visual Studio 2019.lnk" "C:\Users\Public\Desktop\Visual Studio 2019.lnk"
     - name: Membuat Tunnel.
       run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
-    - name: Menghubungkan ke RDP-Windows2020.
+    - name: Connect Ke RDP Kamu CPU 2 Core - 7GB Ram - 255 SSD.
       run: cmd /c start.bat
-    - name: Berhasil!.
-      run: | 
-        Invoke-WebRequest https://github.com/Ardhiannn/RDP-Windows2020/raw/main/loop.ps1 -OutFile loop.ps1
-        ./loop.ps1
+    - name: Berhasil Dibuat! Anda Bisa Menutup Tab Sekarang.
+      run: cmd /c loop.bat
